@@ -1,25 +1,49 @@
-# What is Heroku Flask Template ?
+# Blockchain tips
 `version 1.1`
+Blockchain tips service is a simple example of how one can use ERC20 and DEX smart contracts in order to obtain a decentralized blockchain solution for tips payment and ledgering. This repository contains Flask-based backend and some frontend interfaces as well as original Solidity code for smart contracts. 
 
-Heroku Flask Template is a simple web app programmed in Python-3 using flask micro-framework. It is created for begginers to understand the basics of creating a flask web app and deploying it on the Heroku. It can also be used as a template to create your new flask web apps which can then easily be deployable on Heroku.
+**The current version is designed for demonstration and should be run locally with Ganache blockchain.**
 
-##### Please note that this web-app is designed to be deployed on the HEROKU Platform. You can visit it by clicking [here](https://flasktemplate.herokuapp.com).
+## Overview
+The server implements a ERC20 token, DEX exchanger and a payment system, described in a picture:
+
+![](https://i.ibb.co/x8yCbCN/image.png)
+
+The service allows to register a profile for some **personal role** (to receive tips). After the registration the person is provided with a personal page and unique QR code which leads to a tip-payment page. Profile contains some personal info (name, surname, blockchain address, photo) as well as account balances. Personal can sell their tokens to the DEX contract in order to get ethereum. 
+
+For a **person who wants to pay tips** the service provide an option to enter Blockchain address, or read QR code (currently not possible). After finding a profile page of a selected staff person, the payer is able to choose amount of ethers to be translated into tokens and payed.
+
+From all the paid tokens, 1% is going to a special address (`common` in `TIPtoken.sol`) (e.g. restaurant wallet), this provides an opportunity for a company to benefit from our service integration.
 
 ## Language, Framework and Plugins used :
-- ### Python 3.6.2
-- ### Flask micro-framework
-- ### Heroku
+- Python 3.6.2
+- Flask and some extensions (see `requirements.txt`)
+- Web3.py
+- Pony ORM
+- Solidity
 
-## How to use the Heroku Flask Template ?
-- ### Download or clone this template.
-- ### Add your web-pages in the `templates` folder.
-- ### Edit `main.py` to add new routes and render the web-pages.
-- ### Add all the extra plugins that you used in the `requirements.txt`.
-- ### Push it to the Heroku server and deploy.
+## How to use?
+1. Download or clone this template.
+2. Start [Ganache node](https://github.com/trufflesuite/ganache#getting-started)
+3. Connect to the blockchain using [Remix IDE](remix.ethereum.org/)
+4. Deploy and setup smart-contracts
+   * Set `address private common = 0xA4c339CC8259a6B271c12799D5284235B4F33a73;` in `TIPtoken.sol` to the restorant address to send there part of tips
+   * Upload `TIPtoken.sol`
+   * Deploy ERC20Tip contract
+   * Deploy DEX contract, stating the addres of ERC20Tip contract
+   * Transact some ethereum to the DEX contract
+   * Send all the tokens to the DEX contract
+5. [Optional] If you changed the contracts logics, put ABI from contract compilation to files `static/assets/abi.txt` for ERC20Tip contract and `static/assets/abi_dex.txt` for DEX contract
+6. Set your contract addresses in `web3_utils.py`
+8. Run `python3 -m blockchain-tips`
 
-## Why I created this template ?
-I tried to deploy several of my python applications to Heroku. But it was a disaster to find out so many flaws. There were so many tutorials yet it takes so much time to figure things out, thus once I sucessfully deployed my first flask app on Heroku I decided to upload it on GitHub so that everyone can use it ! 
 
-## License and Usage :
+## Acknowledgements
+**Skoltech "Intro to Blockchain" 2021 course team**
+- Yuriy Yanovich
+- Yash Madhwal
 
-This project is completely open-source and free-to-use. But you will need to mention about its great, super awesome author XD (JK, use it anywhere you want, I really don't care.) PS, Happy Coding! 
+**Project team**
+- Valentin Samokhin
+- Pavel Burnishev
+- Georgiy Kozhevnikov
