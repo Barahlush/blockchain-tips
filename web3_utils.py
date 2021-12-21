@@ -14,8 +14,8 @@ def connect_contract(contract_address, abi_file):
 erc20_addr = "0xD26B1D179e919D7c8fA47563Adad9558363E1c81"
 dex_addr = "0x7B2e4d0ad3111069796A510DB3F1F561076D1D30"
 
-erc20_contract = connect_contract(erc20_addr, "Project/static/assets/abi.txt")
-dex_contract = connect_contract(dex_addr, "Project/static/assets/abi_dex.txt")
+erc20_contract = connect_contract(erc20_addr, "blockchain-tips/static/assets/abi.txt")
+dex_contract = connect_contract(dex_addr, "blockchain-tips/static/assets/abi_dex.txt")
 
 
 def get_erc20_decimals(contract=erc20_contract):
