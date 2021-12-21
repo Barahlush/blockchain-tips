@@ -27,15 +27,16 @@ From all the paid tokens, 1% is going to a special address (`common` in `TIPtoke
 2. Start [Ganache node](https://github.com/trufflesuite/ganache#getting-started)
 3. Connect to the blockchain using [Remix IDE](remix.ethereum.org/)
 4. Deploy and setup smart-contracts
-   * Set `address private common = 0xA4c339CC8259a6B271c12799D5284235B4F33a73;` in `TIPtoken.sol` to the restorant address to send there part of tips
+   * Set `address private common = 0xA4c339CC8259a6B271c12799D5284235B4F33a73;` in `TIPtoken.sol` to the restorant address to send there 1% of tips
    * Upload `TIPtoken.sol`
    * Deploy ERC20Tip contract
    * Deploy DEX contract, stating the addres of ERC20Tip contract
    * Transact some ethereum to the DEX contract
    * Send all the tokens to the DEX contract
-5. [Optional] If you changed the contracts logics, put ABI from contract compilation to files `static/assets/abi.txt` for ERC20Tip contract and `static/assets/abi_dex.txt` for DEX contract
-6. Set your contract addresses in `web3_utils.py`
-8. Run `python3 -m blockchain-tips`
+5. [Optional] If you changed the contracts logics, put ABI from contract compilation to files `static/assets/abi.txt` for ERC20Tip contract and `static/assets/abi_dex.txt` for DEX contract (file pathes could be changed in `.env`)
+6. Set your contract addresses in `.env`
+7. Run `python3 -m blockchain-tips` from parent directory
+8. Visit website via url provided by terminal 
 
 
 ## Acknowledgements
