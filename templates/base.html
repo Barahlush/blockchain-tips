@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>Hello!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="static/style/style.css" />
+  </head>
+  <body class="bg-light">
+    <header class="container bg-white">
+      <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="static/assets/logo.jpg" alt="" />
+        <h1>Block-tips</h1>
+        <p class="lead">
+          We provide the most transparent way to pay and receive tips!
+        </p>
+      </div>
+      {% with messages = get_flashed_messages() %} {% if messages %} {% for
+      message in messages %}
+
+      <div class="alert alert-success" role="alert">{{ message }}</div>
+      {% endfor %} {% endif %}{% endwith %}
+    </header>
+    <div class="container bg-light" id="content">
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

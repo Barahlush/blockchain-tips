@@ -1,0 +1,84 @@
+{% extends 'base.html' %} {% block content %}
+<h3>
+  <form class="form-reg" action="" method="post">
+    <h2 class="h1 mb-3 font-weight-bold">Register</h2>
+    <br />
+    <div
+      class="container"
+      style="display: flex; justify-content: space-between"
+    >
+      <div class="container">
+        <h2 class="h3 mb-3 font-weight-bold">Account info</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input
+          type="email"
+          name="email"
+          id="inputEmail"
+          class="form-control"
+          placeholder="Email address"
+          value="{{request.form.username }}"
+          required
+          autofocus
+        />
+
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="inputPassword"
+          class="form-control"
+          placeholder="Password"
+          value="{{request.form.password }}"
+          required
+        />
+        <label for="inputEthAddress" class="sr-only">Ethereum address</label>
+        <input
+          type="text"
+          name="eth-address"
+          id="eth-address"
+          class="form-control"
+          placeholder="Ethereum address"
+        />
+      </div>
+      <div class="container">
+        <h2 class="h3 mb-3 font-weight-bold">Personal info</h2>
+        <label for="inputName" class="sr-only">Name</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="form-control"
+          placeholder="Name"
+          required
+        />
+
+        <label for="inputSurname" class="sr-only">Surname</label>
+        <input
+          type="text"
+          name="surname"
+          id="surname"
+          class="form-control"
+          placeholder="Surname"
+          required
+        />
+
+        <label for="inputPhotoURL" class="sr-only">Photo URL</label>
+        <input
+          type="text"
+          name="photo-url"
+          id="photo-url"
+          class="form-control"
+          placeholder="Photo URL"
+          required
+        />
+      </div>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block btn-big" type="submit">
+      Register
+    </button>
+  </form>
+  {% if error %}
+  <p class="error"><strong>Error:</strong> {{ error }}</p>
+  {% endif %}
+</h3>
+{% endblock %}

@@ -1,0 +1,136 @@
+{% extends 'base.html' %} {% block content %} {% if not
+current_user.is_authenticated %}
+<h3>
+  <form class="form-signin" action="" method="post">
+    <h2 class="h1 mb-3 font-weight-bold">You want to <b>recieve</b> tips?</h2>
+    <br />
+    <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input
+      type="email"
+      name="email"
+      id="inputEmail"
+      class="form-control"
+      placeholder="Email address"
+      value="{{request.form.username }}"
+      required
+      autofocus
+    />
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input
+      type="password"
+      name="password"
+      id="inputPassword"
+      class="form-control"
+      placeholder="Password"
+      value="{{request.form.password }}"
+      required
+    />
+    <button class="btn btn-lg btn-primary btn-block" type="submit">
+      Sign in
+    </button>
+    <br />
+    or <a href="reg">register</a>
+  </form>
+  {% if error %}
+  <p class="error"><strong>Error:</strong> {{ error }}</p>
+  {% endif %}
+</h3>
+<div class="verticalLine"></div>
+<h3>
+  <form class="form-signin" action="" method="post">
+    <h2 class="h1 mb-3 font-weight-bold">You want to <b>send</b> tips?</h2>
+    <br />
+    <h1 class="h3 mb-3 font-weight-normal">Enter where to send</h1>
+    <label for="eth-address" class="sr-only">Ethereum address</label>
+    <input
+      type="text"
+      name="eth-address"
+      id="eth-address"
+      class="form-control"
+      placeholder="Ethereum address"
+      required
+      autofocus
+    />
+    <button class="btn btn-lg btn-primary btn-block" type="submit">
+      Use address
+    </button>
+  </form>
+  or
+  <a href="qr">
+    <button class="qr-button btn-lg" type="submit">
+      <img src="static/assets/qr-code.svg" height="32px" /> &nbsp; read QR code
+    </button>
+  </a>
+
+  {% if error %}
+  <p class="error"><strong>Error:</strong> {{ error }}</p>
+  {% endif %}
+</h3>
+<br />
+{% else %}
+<div style="display: flex">
+  <div
+    class="content"
+    style="display: flex; flex-direction: column; align-items: left"
+  >
+    <h2 class="h1 mb-3 font-weight-bold">Profile</h2>
+    <h2 class="h3 mb-3 font-weight-bold">
+      Name: <br /><code>{{ current_user.name }}</code>
+    </h2>
+    <h2 class="h3 mb-3 font-weight-bold">
+      Surname: <br /><code>{{ current_user.surname }}</code>
+    </h2>
+    <h2 class="h3 mb-3 font-weight-bold">
+      Ethereum address: <br /><code>{{ current_user.eth_address }}</code>
+    </h2>
+    {% if transaction_hash is defined %}
+    <h2 class="h3 mb-3 font-weight-bold" style="color:green">
+        Tokens have been succesfully sold!
+    </h2>
+    {% endif %}
+    <h2 class="h3 mb-3 font-weight-bold">
+        Ethereum amount: <br /><code>{{ "{:,}".format(ether_balance(current_user.eth_address)) }} = {{ "{:.2e}".format(ether_balance(current_user.eth_address)) }}</code>
+    </h2>
+    <h2 class="h3 mb-3 font-weight-bold">
+        Token amount: <br /><code>{{ "{:,}".format(token_balance(current_user.eth_address)) }} = {{ "{:.2e}".format(token_balance(current_user.eth_address)) }}</code>
+    </h2>
+    <h2 class="h3 mb-3 font-weight-bold">
+        Sell tokens
+    </h2>
+    <form class="form-reg" action="" method="post">
+        <input
+          type="number"
+          placeholder="Amount (1 token = 1 wei)"
+          name="amount"
+          required
+        />
+        <input class="btn-primary" type="submit" value="Pay" />
+      </form>
+    <a href={{ "/pay/{}".format(current_user.hash) }} style="margin-bottom: 5em">
+    <h2 class="h3 mb-3 font-weight-bold"></h2>
+      Your QR code: <br />
+      <img src="{{ qrcode("/pay/{}".format(current_user.hash)) }}" alt=""
+      srcset=""/>
+    </a>
+    <br>
+  </div>
+  <h3>
+    <div
+      class="content"
+      style="display: flex; flex-direction: column; align-items: left"
+    >
+      <h2 class="h3 mb-3 font-weight-bold" style="margin-left: 3em">
+        Photo: <br /><img src="{{current_user.photo_url}}" height="350px" />
+      </h2>
+      <br />
+      <a href="logout" class="btn btn-default" role="button" aria-pressed="true"
+        >Logout</a
+      >
+      <a href="edit" class="btn btn-default" role="button" aria-pressed="true"
+        >Edit profile</a
+      >
+    </div>
+  </h3>
+</div>
+{% endif %} {% endblock %}

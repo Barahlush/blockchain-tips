@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% block content %}
+<div style="display: flex">
+  <div
+    class="content"
+    style="display: flex; flex-direction: column; align-items: left"
+  >
+    <h2 class="h1 mb-3 font-weight-bold">Profile</h2>
+    <h2 class="h3 mb-3 font-weight-bold">
+      Name: <br /><code>{{ user.name }}</code>
+    </h2>
+    <h2 class="h3 mb-3 font-weight-bold">
+      Surname: <br /><code>{{ user.surname }}</code>
+    </h2>
+    <h2 class="h3 mb-3 font-weight-bold">
+      Ethereum address: <br /><code>{{ user.eth_address }}</code>
+    </h2>
+  </div>
+  <h3>
+    <div
+      class="content"
+      style="display: flex; flex-direction: column; align-items: left"
+    >
+      <h2 class="h3 mb-3 font-weight-bold" style="margin-left: 3em">
+        Photo: <br /><img src="{{user.photo_url}}" height="350px" />
+      </h2>
+      <br />
+    </div>
+  </h3>
+</div>
+<br />
+<h2 class="h2 mb-3 font-weight-bold">Enter your wallet data and tip size</h2>
+<h3>
+  <form class="form-signin" action="" method="post">
+    <input type="text" placeholder="Wallet address" name="address" required />
+    <input
+      type="number"
+      placeholder="Amount (1 token = 1 wei)"
+      name="amount"
+      required
+    />
+    <input class="btn btn-big btn-primary" type="submit" value="Pay" />
+  </form>
+</h3>
+{% if error %}
+<p class="error"><strong>Error:</strong> {{ error }} {% endif %}</p>
+
+{% endblock %}
