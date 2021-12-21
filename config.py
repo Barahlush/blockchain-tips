@@ -1,7 +1,9 @@
+from dotenv import dotenv_values
+secret = dotenv_values("blockchain-tips/.env")["DB_SECRET_KEY"]
 
 config = dict(
     DEBUG=False,
-    SECRET_KEY='3b05ed81998398d8391dd5dce2f2ddc83bce908d2cead9751db3e5e1d6d96732',
+    SECRET_KEY=secret,
     PONY={
         'provider': 'sqlite',
         'filename': 'db.db3',

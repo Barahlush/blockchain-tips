@@ -1,7 +1,10 @@
 import json
 from web3 import Web3
 import os
-w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))
+from dotenv import dotenv_values
+config = dotenv_values("blockchain-tips/.env")
+
+w3 = Web3(Web3.HTTPProvider(config["BLOCKCHAIN_HTTP_ADDRESS"]))
 
 
 def connect_contract(contract_address, abi_file):
@@ -11,11 +14,13 @@ def connect_contract(contract_address, abi_file):
     return contract
 
 
-erc20_addr = "0xD26B1D179e919D7c8fA47563Adad9558363E1c81"
-dex_addr = "0x7B2e4d0ad3111069796A510DB3F1F561076D1D30"
+erc20_addr = config["ERC20_ADDRESS"]
+dex_addr = config["DEX_ADDRESS"]
 
-erc20_contract = connect_contract(erc20_addr, "blockchain-tips/static/assets/abi.txt")
-dex_contract = connect_contract(dex_addr, "blockchain-tips/static/assets/abi_dex.txt")
+erc20_contract = connect_contract(
+    erc20_addr, config["ERC20_ABI_PATH"])
+dex_contract = connect_contract(
+    dex_addr, config["DEX_ABI_PATH"])
 
 
 def get_erc20_decimals(contract=erc20_contract):
